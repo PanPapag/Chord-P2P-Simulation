@@ -5,6 +5,6 @@ In this section, it is implemented a simple form of Chord, the most known type o
 1) Make
 2) ./Chord
 3) Select the option 3: Construct a Chord network giving an input file. 
-For your help i have created a .txt file with random 4-bit alpharithmetic codes.
+For your help Ι have created a .txt file with random 4-bit alpharithmetic codes.
 This 4-bit codes are being given to the hash function in order to generate the Ip's of each node of the Chord network.
      
