@@ -1,0 +1,2 @@
+# Chord-P2P-Simulation-
+In this section, it is implemented a simple form of Chord, the most known type of distributed hash table. Even if Chord is used as a distributed network system, we will implement it as simulation running in a terminal. All information about Chord are presented in the following link: https://pdos.csail.mit.edu/papers/ton:chord/paper-ton.pdf . You have to read up to the page 6 to understand its functionality.  
