@@ -3,7 +3,7 @@ CC = gcc
 CC_FLAGS = -w
 
 # File names
-EXEC = ask11
+EXEC = Chord
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
 
