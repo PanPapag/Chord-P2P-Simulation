@@ -6,7 +6,7 @@ In this section, a simple form of Chord is implemented, the most known type of d
 1)To compile type Make
 ```
 ```
-2)To execute type ./Chorf
+2)To execute type ./Chord
 ```
 3) Select the option 3: Construct a Chord network giving an input file. 
 For your help Ι have created a .txt file with random 4-bit alpharithmetic codes.
