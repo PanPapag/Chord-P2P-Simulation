@@ -1,11 +1,13 @@
 #ifndef __CHORDTYPES__
 #define __CHORDTYPES__
 
-#define MAXNODENUMBER 8192
-#define M 13    // M = LOG(MAXNODENUMBER);
+#include <math.h>
 
-typedef char* keyType;
-typedef char* valueType;
+#define MAXNODENUMBER 8192
+#define M log(MAXNODENUMBER)  
+
+typedef char *keyType;
+typedef char *valueType;
 
 
 typedef struct Node{
