@@ -63,4 +63,5 @@ nodeType *closestPrecedingNode(nodeType *node,int id) {
     if ((node->finger_table[i]->id > node->id) && (node->finger_table[i]->id < id))
       return node->finger_table[i];
   }
+  return NULL;
 }

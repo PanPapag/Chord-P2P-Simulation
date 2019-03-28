@@ -1,20 +1,32 @@
-# Declaration of variables
+TARGET_EXEC ?= Chord
+
 CC = gcc
-CC_FLAGS = -w
+CC_FLAGS = -w -lm
 
-# File names
-EXEC = Chord
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:.c=.o)
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src
 
-# Main target
-$(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC) -lm
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
 
-# To obtain object files
-%.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-# To remove generated files
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+# c source
+$(BUILD_DIR)/%.c.o: %.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+
+.PHONY: clean
+
 clean:
-	rm -f $(EXEC) $(OBJECTS)
+	$(RM) -r $(BUILD_DIR)
+
+-include $(DEPS)
+
+MKDIR_P ?= mkdir -p

@@ -4,7 +4,7 @@
 #include <time.h>
 
 #include "../Headers/ChordInterface.h"
-#include "../Headers/menu.h"
+#include "../Headers/Menu.h"
 #include "../Headers/Util.h"
 
 int menu(void) {

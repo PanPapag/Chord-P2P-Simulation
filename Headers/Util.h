@@ -1,4 +1,4 @@
-#ifndef __UTILL__
+#ifndef __UTIL__
 #define __UTIL__
 
 #define MAXLENNAME 4
