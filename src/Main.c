@@ -8,7 +8,7 @@ int main(void) {
   int choice,pos,on,off;
   char user_filename[100];
 
-  if(!menu_initialize()) {
+  if (!menu_initialize()) {
     fprintf(stderr,"INFO: ERROR! Quiting...\n");
     fflush(stdin);
     exit(0);
