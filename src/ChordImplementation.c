@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "ChordInterface.h"
-#include "Util.h"
+
+#include "../Headers/ChordInterface.h"
+#include "../Headers/Util.h"
 
 Ring *ChordRing;
 

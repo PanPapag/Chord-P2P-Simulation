@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "ChordInterface.h"
-#include "menu.h"
-#include "Util.h"
+
+#include "../Headers/ChordInterface.h"
+#include "../Headers/menu.h"
+#include "../Headers/Util.h"
 
 int menu(void)
 {

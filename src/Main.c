@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "menu.h"
+
+#include "../Headers/Menu.h"
 
 #define CHORDCONSTRUCTION 1
 #define INSERT 2

@@ -2,19 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "ChordInterface.h"
-#include "Util.h"
 
+#include "../Headers/ChordInterface.h"
+#include "../Headers/Util.h"
 
 extern Ring *ChordRing;
 
-nodeType *Select(void)
-{
+nodeType *Select(void) {
   return ChordRing->firstnode;
 }
 /* A good hash function for strings */
-int HashF(keyType key)
-{
+int HashF(keyType key) {
   int h = 0, a = 127;
   for (; *key!='\0'; key++)
     h = (a*h + *key) % MAXNODENUMBER;
@@ -23,11 +21,11 @@ int HashF(keyType key)
 }
 
 /* Function to create a chord ring via a input file */
-void GenerateChord(FILE *file)
-{ char name[MAXLENNAME];
+void GenerateChord(FILE *file) {
+  char name[MAXLENNAME];
   int id;
-  while (fscanf(file, "%s",name) != EOF ){   //Read each name of node until the end of the file
-    id = HashF(name);                        //pick a random Id through hash function as the Chord Protocol does //
+  while (fscanf(file, "%s",name) != EOF ) {
+    id = HashF(name);
     if(!CreateNode(id))
       return;
   }
@@ -38,11 +36,10 @@ void GenerateChord(FILE *file)
 }
 
 /*Function to find the successor of a node */
-nodeType *Successor(nodeType *node,int id)
-{
-  if(node->predecessor != NULL && (id > node->predecessor->id && id <= node->id))
+nodeType *Successor(nodeType *node,int id) {
+  if (node->predecessor != NULL && (id > node->predecessor->id && id <= node->id))
     return node;
-  else if(id > node->id && id <= node->successor->id)
+  else if (id > node->id && id <= node->successor->id)
     return node->successor;
   else
     return Successor(node->successor,id);
@@ -50,22 +47,20 @@ nodeType *Successor(nodeType *node,int id)
 }
 
 /*Function to find the successor of a node using finger table */
-nodeType *Fast_Successor(nodeType *node,int id)
-{
-  if(node->predecessor != NULL && (id > node->predecessor->id && id <= node->id))
+nodeType *Fast_Successor(nodeType *node,int id) {
+  if (node->predecessor != NULL && (id > node->predecessor->id && id <= node->id))
     return node;
-  else if(id > node->id && id <= node->successor->id)
+  else if (id > node->id && id <= node->successor->id)
     return node->successor;
-  else{
+  else {
       nodeType *pnode = closestPrecedingNode(node,id);
       return Fast_Successor(pnode,id);
   }
 }
 
-nodeType *closestPrecedingNode(nodeType *node,int id)
-{ int i;
-  for( i = M-1 ; i >= 0  ; i--){
-    if((node->finger_table[i]->id > node->id) && (node->finger_table[i]->id < id) )
+nodeType *closestPrecedingNode(nodeType *node,int id) {
+  for (int i = M - 1; i >= 0; i--){
+    if ((node->finger_table[i]->id > node->id) && (node->finger_table[i]->id < id))
       return node->finger_table[i];
   }
 }
