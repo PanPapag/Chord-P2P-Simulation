@@ -4,11 +4,10 @@
 #include <math.h>
 
 #define MAXNODENUMBER 8192
-#define M log(MAXNODENUMBER)  
+#define M 13
 
 typedef char *keyType;
 typedef char *valueType;
-
 
 typedef struct Node{
   int id;
@@ -17,12 +16,12 @@ typedef struct Node{
   struct Node *finger_table[M];
   struct Node *predecessor;
   struct Node *successor;
-}nodeType;
+} nodeType;
 
 typedef struct ring{
   int size;
   nodeType *firstnode;
   nodeType *lastnode;
-}Ring;
+} Ring;
 
 #endif
