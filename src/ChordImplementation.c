@@ -9,10 +9,8 @@
 Ring *ChordRing;
 
 /*Allocate memomy for the ChordRing*/
-int initialize(void)
-{ int i;
-
-  if( ( ChordRing = malloc(sizeof(Ring)) ) == NULL ){
+int initialize(void) {
+  if ((ChordRing = malloc(sizeof(Ring)) ) == NULL ) {
     fprintf(stderr, "INFO: ERROR! Fail in allocated memomy for the Chord Ring\n");
     return 0;
   }
@@ -22,8 +20,8 @@ int initialize(void)
   return 1;
 }
 
-void insert(nodeType *node,keyType key,valueType value)
-{ int id;
+void insert(nodeType *node, keyType key, valueType value) {
+  int id;
   nodeType *suc_node;
   // extract the id of the key through hash function //
   id = HashF(key);
@@ -36,8 +34,8 @@ void insert(nodeType *node,keyType key,valueType value)
   strcpy(suc_node->value,value);
 }
 
-valueType lookup(nodeType *node,keyType key)
-{ int id;
+valueType lookup(nodeType *node,keyType key) {
+  int id;
   nodeType *suc_node;
   // extract the id of the key through hash function //
   id = HashF(key);
@@ -47,25 +45,24 @@ valueType lookup(nodeType *node,keyType key)
 
 }
 
-valueType smartLookup(nodeType *node,keyType key)
-{ int id;
+valueType smartLookup(nodeType *node,keyType key){
+  int id;
   nodeType *suc_node;
   // extract the id of the key through hash function //
   id = HashF(key);
   suc_node = Fast_Successor(node,id);
 
   return suc_node->value;
-
 }
 
-int CreateNode(int id)
-{ nodeType *node;
+int CreateNode(int id) {
+  nodeType *node;
 
-  if( ( node = malloc(sizeof(nodeType)) ) == NULL ){
+  if ((node = malloc(sizeof(nodeType)) ) == NULL ){
     fprintf(stderr, "Fail in allocated memomy for a node in the Chord Ring\n");
     return 0;
   }
-  else{
+  else { 
     node->id = id;              // save node id in the proper field //
     ChordRing->size++;          // with each node being added in the chord ring increase its size by 1 //
     InsertRing(node);           // Insert node in the Chord Ring //
@@ -73,18 +70,18 @@ int CreateNode(int id)
   return 1;
 }
 /* Function to adjust the finger_table for each node of Chord Ring */
-void Fix_fingertable(void)
-{ int i,id;
-  nodeType *suc_node,*start_node,*current;
+void Fix_fingertable(void) {
+  int id;
+  nodeType *suc_node, *start_node, *current;
 
   start_node = Select();
   current = Select();
 
-  while(current != NULL){
-    for(i = 0 ; i < M ; i++){
+  while (current != NULL) {
+    for(int i = 0; i < M; i++) {
       id = current->id + pow(2,i);
       //bear in mind the cyclic property of Chord Ring//
-      if(id >= MAXNODENUMBER )
+      if (id >= MAXNODENUMBER)
         id = id - ChordRing->size;
       //Find its successor //
       suc_node = Successor(start_node,id);
@@ -94,33 +91,33 @@ void Fix_fingertable(void)
   }
 }
 
-void InsertRing(nodeType *node)
-{ nodeType *current;
+void InsertRing(nodeType *node) {
+  nodeType *current;
   /* if Chord Ring is empty do as following */
-  if(ChordRing->firstnode == NULL){
+  if (ChordRing->firstnode == NULL) {
     node->predecessor = NULL;
     node->successor = NULL;
     ChordRing->firstnode = node;
     ChordRing->lastnode = node;
   }
   // in other case insert the node in the right position of the ring //
-  else{
+  else {
     current = ChordRing->firstnode;
-    while(current != NULL){
+    while (current != NULL) {
       // if we are in the end //
-      if(current->successor == NULL){
-        if( node->id > current->id )
+      if (current->successor == NULL) {
+        if (node->id > current->id )
           InsertAfter(current,node);
-        else if ( node->id < current->id )
+        else if (node->id < current->id )
           InsertBefore(current,node);
         break;
       }
-      else{
-        if((node->id > current->id) && (node->id < current->successor->id)){
+      else {
+        if ((node->id > current->id) && (node->id < current->successor->id)) {
           InsertAfter(current,node);
           break;
         }
-        else if((node->id < current->id) && ((current->predecessor == NULL) || (node->id > current->predecessor->id))){
+        else if ((node->id < current->id) && ((current->predecessor == NULL) || (node->id > current->predecessor->id))){
           InsertBefore(current,node);
           break;
         }
@@ -128,39 +125,37 @@ void InsertRing(nodeType *node)
       current = current->successor;
     }
     // Update first and last node if neccessary //
-    if(node->id < ChordRing->firstnode->id)
+    if (node->id < ChordRing->firstnode->id)
       ChordRing->firstnode = node;
     else if (node->id > ChordRing->lastnode->id)
       ChordRing->lastnode = node;
   }
 }
 
-void InsertAfter(nodeType *current,nodeType *node)
-{
+void InsertAfter(nodeType *current, nodeType *node) {
   node->predecessor = current;
   node->successor = current->successor;
-  if(current->successor == NULL)
+  if (current->successor == NULL)
     ChordRing->lastnode = node;
   else
     current->successor->predecessor = current;
   current->successor = node;
 }
 
-void InsertBefore(nodeType *current,nodeType *node)
-{
+void InsertBefore(nodeType *current, nodeType *node) {
   node->predecessor = current->predecessor;
   node->successor = current;
-  if(current->predecessor == NULL)
+  if (current->predecessor == NULL)
     ChordRing->firstnode = node;
   else
     current->predecessor->successor = current;
   current->predecessor = node;
 }
 
-void PrintRing()
-{ nodeType *current;
+void PrintRing() {
+  nodeType *current;
   current = ChordRing->firstnode;
-  while(current!=NULL){
+  while (current!=NULL){
     printf("id: %d\n",current->id);
     current = current->successor;
   }

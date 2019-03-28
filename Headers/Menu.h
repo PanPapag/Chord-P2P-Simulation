@@ -1,16 +1,22 @@
 #ifndef __MENU__
 #define __MENU__
 
-#define ERROR 0
-#define VALID 1
 #define MAXNODENUMBER 8192
 #define MAXLEN 100
+
+#define ERROR 0
+#define VALID 1
 #define LOOKUP 1
 #define SMARTLOOKUP 2
 
-void menu_get_input_file(char * user_filename);
+#define QUIT 0
+#define CHORDCONSTRUCTION 1
+#define INSERT 2
+#define SEARCH 3
 
-void menu_insert_from_file(char * user_filename);
+void menu_get_input_file(char *user_filename);
+
+void menu_insert_from_file(char *user_filename);
 
 int menu_initialize(void);
 

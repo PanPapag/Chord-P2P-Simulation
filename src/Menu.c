@@ -7,8 +7,7 @@
 #include "../Headers/menu.h"
 #include "../Headers/Util.h"
 
-int menu(void)
-{
+int menu(void) {
     int option;
 
     printf("\n------------------------------------------------------\n\t\t      Chord Menu\n------------------------------------------------------\n");
@@ -30,8 +29,7 @@ int menu(void)
     return option;
 }
 
-int menu_initialize(void)
-{
+int menu_initialize(void) {
   if(initialize())
      return VALID;
   else
@@ -39,42 +37,39 @@ int menu_initialize(void)
 }
 
 
-void menu_quit(void)
-{
+void menu_quit(void) {
     printf("INFO: Quiting...Bye!\n");
     fflush(stdin);   /* clear bad data from buffer */
     exit(0);
 }
 
 /*read the name of a file and store it in the string array user_filename */
-void menu_get_input_file(char * user_filename)
-{
+void menu_get_input_file(char * user_filename) {
   printf("Q: Enter the filename of the input file: ");
   scanf("%s", user_filename);
   printf("\n");
 }
 
-void menu_insert_from_file(char * user_filename)
-{
+void menu_insert_from_file(char * user_filename) {
  FILE *file=fopen(user_filename, "r");
- if (!file){
+ if (!file) {
    printf("ERROR: Error opening the file %s !\n",user_filename);
    return;
  }
- else{
+ else {
    GenerateChord(file);
  }
 }
 
-int menu_insert(void)
-{ int node_id;
+int menu_insert(void) {
+  int node_id;
   nodeType *node;
   keyType  key;
   valueType value;
 
   node = Select();
-  if(node == NULL){
-    printf("INFO: ERROR! Chord network has no nodes connected\n");
+  if (node == NULL) {
+    fprintf(stderr,"INFO: ERROR! Chord network has no nodes connected\n");
     return ERROR;
   }
   /*Allocate memory for key and value */
@@ -89,27 +84,28 @@ int menu_insert(void)
   printf("\n");
 
   insert(node,key,value);
-
+  /* Deallocate memory */
   free(key);
   free(value);
 
   return 1;
 }
 
-int menu_search(void)
-{ int choice;
+int menu_search(void) {
+  int choice;
+  double time_taken;
   nodeType *node;
   valueType value;
   keyType key;
 
-  do{
+  do {
     choice = search_options();
-    switch(choice){
+    switch(choice) {
       case LOOKUP:
 
           node = Select();
-          if(node == NULL){
-            printf("INFO: ERROR! Chord network has no nodes connected\n");
+          if(node == NULL) {
+            fprintf(stderr,"INFO: ERROR! Chord network has no nodes connected\n");
             return ERROR;
           }
 
@@ -126,18 +122,18 @@ int menu_search(void)
           //copy value of the key in the string value //
           strcpy(value,lookup(node,key));
           t = clock() - t;
-          double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-          // result //
+          time_taken = ((double)t)/CLOCKS_PER_SEC;
+
           printf("Giving the key '%s' the correspodent value is: %s\n",key,value);
           printf("Lookup took %f seconds to execute \n", time_taken);
-
+          /* Deallocate memory */
           free(value);
           free(key);
           break;
       case SMARTLOOKUP:
           node = Select();
-          if(node == NULL){
-            printf("INFO: ERROR! Chord network has no nodes connected\n");
+          if(node == NULL) {
+            fprintf(stderr,"INFO: ERROR! Chord network has no nodes connected\n");
             return ERROR;
           }
 
@@ -153,11 +149,11 @@ int menu_search(void)
           //copy value of the key in the string value //
           strcpy(value,smartLookup(node,key));
           t = clock() - t;
-          time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-          // result //
+          time_taken = ((double)t)/CLOCKS_PER_SEC;
+
           printf("Giving the key '%s' the correspodent value is: %s\n",key,value);
           printf("Smart Lookup took %f seconds to execute \n", time_taken);
-
+          /* Deallocate memory */
           free(value);
           free(key);
           break;
@@ -165,13 +161,13 @@ int menu_search(void)
           printf("\nINFO: Bad input.\n");
           printf("INFO: Please try again.\n\n");
     }
-  }while(choice != 1 && choice != 2 );
+  } while(choice != 1 && choice != 2 );
 
   return VALID;
 }
 
-int search_options(void)
-{ int option;
+int search_options(void) {
+  int option;
   printf("1.Search using lookup algorithm\n");
   printf("2.Search using smart lookup algorithm\n");
   printf("\nQ: Make your selection: ");
