@@ -5,7 +5,7 @@ In this section, a simple form of Chord is implemented, the most known type of d
 Download source code by typing:
 
 ```
-git clone https://github.com/PanPapag/Ecosystem-Simulation.git
+git clone https://github.com/PanPapag/Chord-P2P-Simulation-.git
 ```
 ### Compilation
 
