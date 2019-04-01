@@ -22,8 +22,7 @@ A new directory `build` has been created. Cd to build by typing `cd build` . Aft
 ```
 ./Chord
 ```
-Select the option 3: ```Construct a Chord network giving an input file. 
-                     ```
+Select the option 3: Construct a Chord network giving an input file. 
 For your help Ι have created a .txt file with random 4-bit alpharithmetic codes.
 This 4-bit codes are being given to the hash function in order to generate the Ip's of each node of the Chord network.
  
