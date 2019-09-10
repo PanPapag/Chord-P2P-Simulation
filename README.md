@@ -17,7 +17,7 @@ make
 
 ## Running 
 
-A new directory `build` has been created. Cd to build by typing `cd build` . After that, run ecosystem simulation simply by typing:
+A new directory `build` has been created. Cd to build by typing `cd build` . After that, run Chord System simulation simply by typing:
 
 ```
 ./Chord
