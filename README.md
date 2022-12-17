@@ -1,5 +1,14 @@
 # Chord-P2P-Simulation-
 In this section, a simple form of Chord is implemented, the most known type of distributed hash table. Even if Chord is used as a distributed network system, we will implement it in a computer using C programming language. All information about Chord are presented in the following link: https://pdos.csail.mit.edu/papers/ton:chord/paper-ton.pdf . You have to read up to the page 6 to understand its functionality.  
+
+We define an abstract data type DHT that implements Chord which has the following interface:
+
+- ```void initialize(void)```: This function creates a Chord network with as many nodes as the value of a constant MAXNODENUMBER.
+- ```void insert(nodeType, keyType, valueType)```: This function asks a node of type nodeType to insert a (key, value) pair of types (keyType, valueType) into the network.
+- ```void delete(nodeType, keyType)```: This function asks a node of type nodeType to delete the (key, value) pair that corresponds to a given key of type keyType from the network.
+- ```valueType lookup(nodeType, keyType)```: This function asks a node of type nodeType to find the value of type valueType that corresponds to a given key of type keyType in the network.
+- ```void print()```: This function asks every node to print its identifier and the (key, value) pairs it stores.
+
 ### Installing
 
 Download source code by typing:
